@@ -117,7 +117,7 @@ export function HomeScreen({ navigation }: Props) {
             emoji="🎨"
             size={110}
             color={Colors.yellow}
-            onPress={() => navigation.navigate('SongSelect')}
+            onPress={() => navigation.navigate('Coloring')}
           />
         </View>
 
@@ -132,7 +132,7 @@ export function HomeScreen({ navigation }: Props) {
             emoji="🐾"
             size={110}
             color={Colors.green}
-            onPress={() => navigation.navigate('SongSelect')}
+            onPress={() => navigation.navigate('Animals')}
           />
         </View>
       </Animated.View>

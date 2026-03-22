@@ -11,11 +11,15 @@ import { SongSelectScreen } from './src/screens/SongSelectScreen';
 import { SingAlongScreen } from './src/screens/SingAlongScreen';
 import { StickerBookScreen } from './src/screens/StickerBookScreen';
 import { ParentDashboardScreen } from './src/screens/ParentDashboardScreen';
+import { ColoringScreen } from './src/screens/ColoringScreen';
+import { AnimalsScreen } from './src/screens/AnimalsScreen';
 
 type RootStackParamList = {
   Home: undefined;
   SongSelect: undefined;
   SingAlong: { songId: string };
+  Coloring: undefined;
+  Animals: undefined;
   StickerBook: undefined;
   ParentDashboard: undefined;
 };
@@ -41,6 +45,8 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SongSelect" component={SongSelectScreen} />
             <Stack.Screen name="SingAlong" component={SingAlongScreen} />
+            <Stack.Screen name="Coloring" component={ColoringScreen} />
+            <Stack.Screen name="Animals" component={AnimalsScreen} />
             <Stack.Screen name="StickerBook" component={StickerBookScreen} />
             <Stack.Screen name="ParentDashboard" component={ParentDashboardScreen} />
           </Stack.Navigator>
