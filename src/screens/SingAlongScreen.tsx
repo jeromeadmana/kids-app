@@ -22,6 +22,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SONGS, BackgroundElement } from '../utils/songs';
 import { Colors } from '../utils/colors';
 import { HapticFeedback } from '../utils/haptics';
+import { SoundManager, SFXName } from '../utils/SoundManager';
 import { CelebrationOverlay } from '../components/CelebrationOverlay';
 import { useApp } from '../context/AppContext';
 
@@ -106,8 +107,9 @@ function ReactiveElement({
       withTiming(0, { duration: 400 })
     );
 
-    // Haptic feedback
+    // Haptic + sound feedback
     HapticFeedback.elementReact();
+    SoundManager.playSFX(element.tapSound as SFXName);
   };
 
   const animStyle = useAnimatedStyle(() => ({
@@ -262,6 +264,7 @@ export function SingAlongScreen({ route, navigation }: Props) {
     setIsPlaying(true);
     setProgress(0);
     HapticFeedback.tap();
+    SoundManager.playSong(song.id);
 
     const startTime = Date.now();
     progressInterval.current = setInterval(() => {
@@ -271,6 +274,8 @@ export function SingAlongScreen({ route, navigation }: Props) {
 
       if (p >= 1) {
         clearInterval(progressInterval.current!);
+        SoundManager.stopSong();
+        SoundManager.playSFX('celebration');
         setIsPlaying(false);
         setShowCelebration(true);
         HapticFeedback.celebrate();
@@ -285,6 +290,7 @@ export function SingAlongScreen({ route, navigation }: Props) {
     return () => {
       clearTimeout(timer);
       if (progressInterval.current) clearInterval(progressInterval.current!);
+      SoundManager.stopSong();
     };
   }, []);
 
@@ -307,6 +313,7 @@ export function SingAlongScreen({ route, navigation }: Props) {
         style={styles.homeButton}
         onPress={() => {
           if (progressInterval.current) clearInterval(progressInterval.current!);
+          SoundManager.stopSong();
           HapticFeedback.tap();
           navigation.goBack();
         }}

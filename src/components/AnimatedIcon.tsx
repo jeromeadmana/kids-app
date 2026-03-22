@@ -10,6 +10,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { HapticFeedback } from '../utils/haptics';
+import { SoundManager } from '../utils/SoundManager';
 
 interface Props {
   emoji: string;
@@ -72,6 +73,7 @@ export function AnimatedIcon({
     );
 
     HapticFeedback.tap();
+    SoundManager.playSFX('pop');
     onPress();
   };
 

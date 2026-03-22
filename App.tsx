@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 
 import { AppProvider } from './src/context/AppContext';
+import { SoundManager } from './src/utils/SoundManager';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { SongSelectScreen } from './src/screens/SongSelectScreen';
 import { SingAlongScreen } from './src/screens/SingAlongScreen';
@@ -22,6 +23,10 @@ type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  useEffect(() => {
+    SoundManager.init();
+  }, []);
+
   return (
     <GestureHandlerRootView style={styles.root}>
       <AppProvider>

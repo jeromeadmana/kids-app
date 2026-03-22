@@ -13,6 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SONGS } from '../utils/songs';
 import { Colors } from '../utils/colors';
 import { HapticFeedback } from '../utils/haptics';
+import { SoundManager } from '../utils/SoundManager';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const CARD_SIZE = (SCREEN_W - 60) / 2;
@@ -35,6 +36,7 @@ function SongCard({
       <Pressable
         onPress={() => {
           HapticFeedback.tap();
+          SoundManager.playSFX('chime');
           onPress();
         }}
         style={({ pressed }) => [

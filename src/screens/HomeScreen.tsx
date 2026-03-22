@@ -22,6 +22,7 @@ import { AnimatedIcon } from '../components/AnimatedIcon';
 import { ParentalGate } from '../components/ParentalGate';
 import { Colors } from '../utils/colors';
 import { HapticFeedback } from '../utils/haptics';
+import { SoundManager } from '../utils/SoundManager';
 
 const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
 
