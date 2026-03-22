@@ -32,11 +32,14 @@ function SingleParticle({
 }) {
   const opacity = useSharedValue(1);
   const translateY = useSharedValue(0);
+  const translateX = useSharedValue(0);
   const scale = useSharedValue(0.3);
 
   useEffect(() => {
+    const drift = (Math.random() - 0.5) * 60;
     scale.value = withTiming(1.2, { duration: 200 });
     translateY.value = withTiming(-80 - Math.random() * 60, { duration: 800 });
+    translateX.value = withTiming(drift, { duration: 800 });
     opacity.value = withDelay(
       400,
       withTiming(0, { duration: 400 }, () => {
@@ -49,7 +52,7 @@ function SingleParticle({
     opacity: opacity.value,
     transform: [
       { translateY: translateY.value },
-      { translateX: (Math.random() - 0.5) * 60 },
+      { translateX: translateX.value },
       { scale: scale.value },
     ],
   }));
