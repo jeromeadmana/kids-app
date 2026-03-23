@@ -13,6 +13,11 @@ import { StickerBookScreen } from './src/screens/StickerBookScreen';
 import { ParentDashboardScreen } from './src/screens/ParentDashboardScreen';
 import { ColoringScreen } from './src/screens/ColoringScreen';
 import { AnimalsScreen } from './src/screens/AnimalsScreen';
+import { MemoryGameScreen } from './src/screens/MemoryGameScreen';
+import { ABCLettersScreen } from './src/screens/ABCLettersScreen';
+import { NumbersScreen } from './src/screens/NumbersScreen';
+import { ShapeMatchingScreen } from './src/screens/ShapeMatchingScreen';
+import { MusicalInstrumentsScreen } from './src/screens/MusicalInstrumentsScreen';
 
 type RootStackParamList = {
   Home: undefined;
@@ -22,6 +27,11 @@ type RootStackParamList = {
   Animals: undefined;
   StickerBook: undefined;
   ParentDashboard: undefined;
+  MemoryGame: undefined;
+  ABCLetters: undefined;
+  Numbers: undefined;
+  ShapeMatching: undefined;
+  MusicalInstruments: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +59,11 @@ export default function App() {
             <Stack.Screen name="Animals" component={AnimalsScreen} />
             <Stack.Screen name="StickerBook" component={StickerBookScreen} />
             <Stack.Screen name="ParentDashboard" component={ParentDashboardScreen} />
+            <Stack.Screen name="MemoryGame" component={MemoryGameScreen} />
+            <Stack.Screen name="ABCLetters" component={ABCLettersScreen} />
+            <Stack.Screen name="Numbers" component={NumbersScreen} />
+            <Stack.Screen name="ShapeMatching" component={ShapeMatchingScreen} />
+            <Stack.Screen name="MusicalInstruments" component={MusicalInstrumentsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </AppProvider>

@@ -46,6 +46,16 @@ const STICKER_DISPLAY: Record<string, string> = {
   'dog-1': '🐶',
   'bird-1': '🐦',
   'bunny-1': '🐰',
+  'abc-1': '🔤',
+  'abc-2': '📖',
+  'numbers-1': '🔢',
+  'numbers-2': '➕',
+  'shapes-1': '🔷',
+  'shapes-2': '⬟',
+  'memory-1': '🃏',
+  'memory-2': '🏆',
+  'instruments-1': '🎹',
+  'instruments-2': '🎵',
 };
 
 const THEME_LABELS: Record<string, string> = {
@@ -53,6 +63,8 @@ const THEME_LABELS: Record<string, string> = {
   ocean: '🌊',
   garden: '🌸',
   animals: '🐾',
+  learning: '📚',
+  music: '🎵',
 };
 
 function StickerItem({
@@ -93,7 +105,7 @@ export function StickerBookScreen({ navigation }: Props) {
   const totalCount = state.stickers.length;
 
   // Group stickers by theme
-  const themes = ['space', 'ocean', 'garden', 'animals'] as const;
+  const themes = ['space', 'ocean', 'garden', 'animals', 'learning', 'music'] as const;
 
   return (
     <View style={styles.container}>

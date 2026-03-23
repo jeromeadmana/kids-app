@@ -6,6 +6,7 @@ import {
   StatusBar,
   Pressable,
   Text,
+  ScrollView,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -25,10 +26,23 @@ import { HapticFeedback } from '../utils/haptics';
 import { SoundManager } from '../utils/SoundManager';
 
 const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
+const ICON_SIZE = Math.min(90, (SCREEN_W - 80) / 3);
 
 interface Props {
   navigation: any;
 }
+
+const MENU_BUTTONS = [
+  { emoji: '🎤', color: Colors.red, screen: 'SongSelect' },
+  { emoji: '🎨', color: Colors.yellow, screen: 'Coloring' },
+  { emoji: '🐾', color: Colors.green, screen: 'Animals' },
+  { emoji: '🔤', color: Colors.blue, screen: 'ABCLetters' },
+  { emoji: '🔢', color: Colors.orange, screen: 'Numbers' },
+  { emoji: '🔷', color: Colors.cyan, screen: 'ShapeMatching' },
+  { emoji: '🃏', color: Colors.pink, screen: 'MemoryGame' },
+  { emoji: '🎹', color: Colors.purple, screen: 'MusicalInstruments' },
+  { emoji: '⭐', color: Colors.yellow, screen: 'StickerBook' },
+];
 
 function FloatingEmoji({ emoji, delay, x, y }: { emoji: string; delay: number; x: number; y: number }) {
   const translateY = useSharedValue(0);
@@ -105,36 +119,23 @@ export function HomeScreen({ navigation }: Props) {
           <Text style={styles.subtitle}>🎶 🎵 🎶</Text>
         </View>
 
-        {/* Main action buttons — large touch targets */}
-        <View style={styles.buttonGrid}>
-          <AnimatedIcon
-            emoji="🎤"
-            size={110}
-            color={Colors.red}
-            onPress={() => navigation.navigate('SongSelect')}
-          />
-          <AnimatedIcon
-            emoji="🎨"
-            size={110}
-            color={Colors.yellow}
-            onPress={() => navigation.navigate('Coloring')}
-          />
-        </View>
-
-        <View style={styles.buttonGrid}>
-          <AnimatedIcon
-            emoji="⭐"
-            size={110}
-            color={Colors.purple}
-            onPress={() => navigation.navigate('StickerBook')}
-          />
-          <AnimatedIcon
-            emoji="🐾"
-            size={110}
-            color={Colors.green}
-            onPress={() => navigation.navigate('Animals')}
-          />
-        </View>
+        {/* Activity buttons — 3x3 grid */}
+        <ScrollView
+          contentContainerStyle={styles.gridContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.buttonGrid}>
+            {MENU_BUTTONS.map((btn) => (
+              <AnimatedIcon
+                key={btn.screen}
+                emoji={btn.emoji}
+                size={ICON_SIZE}
+                color={btn.color}
+                onPress={() => navigation.navigate(btn.screen)}
+              />
+            ))}
+          </View>
+        </ScrollView>
       </Animated.View>
 
       {/* Parental Gate */}
@@ -170,25 +171,31 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 60,
+    paddingTop: 40,
   },
   mascotContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   mascot: {
-    fontSize: 80,
+    fontSize: 60,
   },
   subtitle: {
-    fontSize: 30,
-    marginTop: 8,
+    fontSize: 24,
+    marginTop: 4,
+  },
+  gridContainer: {
+    alignItems: 'center',
+    paddingBottom: 40,
   },
   buttonGrid: {
     flexDirection: 'row',
-    gap: 24,
-    marginBottom: 24,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 16,
+    maxWidth: ICON_SIZE * 3 + 16 * 2 + 40,
+    paddingHorizontal: 20,
   },
   floatingEmoji: {
     position: 'absolute',

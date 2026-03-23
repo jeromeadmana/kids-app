@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Sticker {
   id: string;
-  theme: 'ocean' | 'space' | 'garden' | 'animals';
+  theme: 'ocean' | 'space' | 'garden' | 'animals' | 'learning' | 'music';
   earned: boolean;
   earnedAt?: number;
 }
@@ -39,6 +39,18 @@ const DEFAULT_STICKERS: Sticker[] = [
   { id: 'dog-1', theme: 'animals', earned: false },
   { id: 'bird-1', theme: 'animals', earned: false },
   { id: 'bunny-1', theme: 'animals', earned: false },
+  // Learning theme (ABC, Numbers, Shapes)
+  { id: 'abc-1', theme: 'learning', earned: false },
+  { id: 'abc-2', theme: 'learning', earned: false },
+  { id: 'numbers-1', theme: 'learning', earned: false },
+  { id: 'numbers-2', theme: 'learning', earned: false },
+  { id: 'shapes-1', theme: 'learning', earned: false },
+  { id: 'shapes-2', theme: 'learning', earned: false },
+  // Music theme (Memory, Instruments)
+  { id: 'memory-1', theme: 'music', earned: false },
+  { id: 'memory-2', theme: 'music', earned: false },
+  { id: 'instruments-1', theme: 'music', earned: false },
+  { id: 'instruments-2', theme: 'music', earned: false },
 ];
 
 const initialState: AppState = {
@@ -65,8 +77,16 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, isParentMode: action.enabled };
     case 'SET_VOLUME':
       return { ...state, volume: action.volume };
-    case 'LOAD_STATE':
-      return { ...state, ...action.state };
+    case 'LOAD_STATE': {
+      const loaded = action.state;
+      // Merge stickers: keep earned status from persisted data, add any new defaults
+      let mergedStickers = state.stickers;
+      if (loaded.stickers) {
+        const persistedMap = new Map(loaded.stickers.map((s) => [s.id, s]));
+        mergedStickers = DEFAULT_STICKERS.map((def) => persistedMap.get(def.id) || def);
+      }
+      return { ...state, ...loaded, stickers: mergedStickers };
+    }
     default:
       return state;
   }
