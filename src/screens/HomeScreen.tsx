@@ -21,7 +21,7 @@ import Animated, {
 import { LinearGradient } from 'expo-linear-gradient';
 import { AnimatedIcon } from '../components/AnimatedIcon';
 import { ParentalGate } from '../components/ParentalGate';
-import { Colors } from '../utils/colors';
+import { Colors, getTimeTheme, TimeThemeConfig } from '../utils/colors';
 import { HapticFeedback } from '../utils/haptics';
 import { SoundManager } from '../utils/SoundManager';
 
@@ -78,20 +78,28 @@ function FloatingEmoji({ emoji, delay, x, y }: { emoji: string; delay: number; x
 export function HomeScreen({ navigation }: Props) {
   const [gateVisible, setGateVisible] = useState(false);
 
-  const bgEmojis = [
-    { emoji: '⭐', x: SCREEN_W * 0.1, y: SCREEN_H * 0.08, delay: 0 },
-    { emoji: '🌙', x: SCREEN_W * 0.8, y: SCREEN_H * 0.06, delay: 300 },
-    { emoji: '☁️', x: SCREEN_W * 0.5, y: SCREEN_H * 0.12, delay: 600 },
-    { emoji: '✨', x: SCREEN_W * 0.3, y: SCREEN_H * 0.18, delay: 200 },
-    { emoji: '💫', x: SCREEN_W * 0.7, y: SCREEN_H * 0.16, delay: 500 },
-    { emoji: '🌟', x: SCREEN_W * 0.15, y: SCREEN_H * 0.22, delay: 400 },
+  const theme = getTimeTheme();
+  const themeConfig = TimeThemeConfig[theme];
+
+  const emojiPositions = [
+    { x: SCREEN_W * 0.1, y: SCREEN_H * 0.08, delay: 0 },
+    { x: SCREEN_W * 0.8, y: SCREEN_H * 0.06, delay: 300 },
+    { x: SCREEN_W * 0.5, y: SCREEN_H * 0.12, delay: 600 },
+    { x: SCREEN_W * 0.3, y: SCREEN_H * 0.18, delay: 200 },
+    { x: SCREEN_W * 0.7, y: SCREEN_H * 0.16, delay: 500 },
+    { x: SCREEN_W * 0.15, y: SCREEN_H * 0.22, delay: 400 },
   ];
+
+  const bgEmojis = emojiPositions.map((pos, i) => ({
+    ...pos,
+    emoji: themeConfig.emojis[i],
+  }));
 
   return (
     <View style={styles.container}>
       <StatusBar hidden />
       <LinearGradient
-        colors={['#74B9FF', '#0984E3']}
+        colors={themeConfig.gradient}
         style={StyleSheet.absoluteFill}
       />
 

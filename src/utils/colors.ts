@@ -33,3 +33,30 @@ export const Colors = {
     garden: ['#00B894', '#2ED573'],
   },
 } as const;
+
+export type TimeTheme = 'morning' | 'afternoon' | 'night';
+
+export function getTimeTheme(): TimeTheme {
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 18) return 'afternoon';
+  return 'night';
+}
+
+export const TimeThemeConfig: Record<
+  TimeTheme,
+  { gradient: [string, string]; emojis: string[] }
+> = {
+  morning: {
+    gradient: ['#74B9FF', '#0984E3'],
+    emojis: ['☀️', '🐦', '☁️', '🌤️', '🦋', '🌈'],
+  },
+  afternoon: {
+    gradient: ['#FD79A8', '#E17055'],
+    emojis: ['🌅', '🌤️', '☁️', '✨', '🦜', '🌻'],
+  },
+  night: {
+    gradient: ['#2C3E50', '#3742FA'],
+    emojis: ['⭐', '🌙', '✨', '💫', '🌟', '🪐'],
+  },
+};
